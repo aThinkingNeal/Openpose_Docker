@@ -11,3 +11,17 @@ activate the virtual environment
 deactivate the virtual environment
 
 `deactivate`
+
+```bash
+
+python3 -m venv env
+
+source env/bin/activate
+
+deactivate
+
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+
+```
