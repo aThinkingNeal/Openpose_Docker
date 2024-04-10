@@ -20,17 +20,17 @@ img = Image.open('test.jpg')
 
 imgs.append(img)
 
-# download images
-for url in urls:
-    response = requests.get("https://hf.co/datasets/YiYiXu/controlnet-testing/resolve/main/" + url)
-    img = Image.open(BytesIO(response.content))
-    imgs.append(img)
-    img.save(url)  # Save the image locally with the same name as the url
+# # download images
+# for url in urls:
+#     response = requests.get("https://hf.co/datasets/YiYiXu/controlnet-testing/resolve/main/" + url)
+#     img = Image.open(BytesIO(response.content))
+#     imgs.append(img)
+#     img.save(url)  # Save the image locally with the same name as the url
 
 
 model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
 
-poses = [model(img) for img in imgs]
+poses = [model(img,include_face = True) for img in imgs]
 
 # Assuming poses are PIL Image objects
 poses_np = [np.array(pose) if not isinstance(pose, np.ndarray) else pose for pose in poses]
