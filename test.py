@@ -16,6 +16,10 @@ imgs = [
     for url in urls
 ]
 
+img = Image.open('test.jpg')
+
+imgs.append(img)
+
 # download images
 for url in urls:
     response = requests.get("https://hf.co/datasets/YiYiXu/controlnet-testing/resolve/main/" + url)
