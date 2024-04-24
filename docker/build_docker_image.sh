@@ -1,0 +1,1 @@
+docker build --network=host --no-cache -t woodenheart/openpose . -f docker/Dockerfile

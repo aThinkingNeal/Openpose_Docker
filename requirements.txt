@@ -156,3 +156,4 @@ typing_extensions==4.11.0
 urllib3==2.2.1
 xacro==1.14.17
 zipp==3.18.1
+mediapipe
