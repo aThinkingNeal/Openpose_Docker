@@ -2,3 +2,7 @@ env/
 *.png
 *.jpg
 *.jpeg
+models/
+.env
+*.xlsx
+venv/

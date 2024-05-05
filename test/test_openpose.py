@@ -28,7 +28,7 @@ imgs.append(img)
 #     img.save(url)  # Save the image locally with the same name as the url
 
 
-model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
+model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet", cache_dir= "../models")
 
 poses = [model(img,include_face = True) for img in imgs]
 
