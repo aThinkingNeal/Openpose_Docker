@@ -34,7 +34,7 @@ def extract_and_save_face_keypoints(image_path, output_file):
             else:
                 file.write("No face detected in this pose.\n")
     
-    poses = [model(img,include_face = True) for img in imgs]
+    poses = [model(img,include_face = True, include_body=False, include_hand=False) for img in imgs]
 
     poses_np = [np.array(pose) if not isinstance(pose, np.ndarray) else pose for pose in poses]
     
@@ -65,13 +65,12 @@ def extract_and_save_face_keypoints(image_path, output_file):
     
     
 
-
 # Main execution
 if __name__ == "__main__":
     # Start timing
     start_time = time.time()
 
-    mbti_str = "infj"
+    mbti_str = "test"
 
     # Define the image path and output file
     image_path = f"{mbti_str}.png"
