@@ -16,7 +16,7 @@ def extract_and_save_face_keypoints(image_path, output_file):
     imgs.append(img)
 
     # Initialize the OpenposeDetector model
-    model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet", cache_dir="../models")
+    model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
 
     # Detect face poses
     face_poses = model.detect_poses(img, include_face=True, include_hand=False)
@@ -62,7 +62,6 @@ def extract_and_save_face_keypoints(image_path, output_file):
 
         # save the pose as a single png file
         plt.imsave(f'{mbti_str}_pose.png',pose)
-    
     
 
 # Main execution

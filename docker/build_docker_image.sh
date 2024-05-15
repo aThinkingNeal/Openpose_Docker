@@ -1,1 +1,1 @@
-docker build --network=host --no-cache -t woodenheart/openpose:test . -f docker/Dockerfile
+docker build --network=host -t woodenheart/openpose:0515 -f docker/deploy.Dockerfile --build-arg GITHUB_TOKEN=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 .
