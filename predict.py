@@ -53,8 +53,9 @@ def process_image():
     keypoints = extract_face_keypoints(image_path)
     os.remove(image_path)
 
-    # Load MBTI dataset
-    with open("mbti_and_face.json", "r") as file:
+    # Load MBTI dataset using absolute path
+    json_file_path = os.path.join(os.path.dirname(__file__), "mbti_and_face.json")
+    with open(json_file_path, "r") as file:
         mbti_data = json.load(file)
 
     # Convert keypoints to JSON
@@ -82,4 +83,4 @@ def process_image():
     return jsonify({"mbti": mbti_prediction})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

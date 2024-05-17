@@ -89,7 +89,7 @@ RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate venv" >> ~/
 EXPOSE 5000
 
 # Set the working directory
-WORKDIR /workspace
+WORKDIR /workspace/Openpose_Docker
 
 # Run the Flask workspacelication
 CMD ["bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate venv && python Openpose_Docker/predict.py"]
