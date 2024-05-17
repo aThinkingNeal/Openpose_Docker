@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
         git wget curl zip unzip bzip2 vim inetutils-ping sudo net-tools iproute2 \
         build-essential \
-        libgl1 libglib2.0-0 libssl-dev libcurl4-openssl-dev \
+        libgl1 libglib2.0-0 libssl-dev libcurl4-openssl-dev libgl1-mesa-glx \
         ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -48,6 +48,30 @@ RUN python -c "from controlnet_aux import OpenposeDetector; OpenposeDetector.fro
 # Use multi-stage build to reduce the image size and hide the ARG
 FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu20.04
 
+ENV DEBIAN_FRONTEND noninteractive
+
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+
+ENV TIME_ZONE="Asia/Shanghai" \
+    TZ="Asia/Shanghai" \
+    CUDA_TOOLKIT_ROOT_DIR="/usr/local/cuda" \
+    LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}" \
+    PYTHONPATH="/workspace" \
+    EXEC_PROVIDER="CUDAExecutionProvider" 
+
+# os packages and timezone
+RUN apt-get -y update && apt-get install -y --no-install-recommends \
+        libgl1 libglib2.0-0 libssl-dev libcurl4-openssl-dev curl \
+        tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Copy Conda and environment from builder
 COPY --from=builder /opt/conda /opt/conda
 
@@ -67,5 +91,5 @@ EXPOSE 5000
 # Set the working directory
 WORKDIR /workspace
 
-# Run the Flask application
-CMD ["bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate venv && python main.py"]
+# Run the Flask workspacelication
+CMD ["bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate venv && python Openpose_Docker/predict.py"]
