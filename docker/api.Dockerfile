@@ -37,6 +37,10 @@ RUN conda init bash &&\
 # Set the working directory
 WORKDIR /workspace
 
+
+# Dummy command to force rebuild
+RUN echo "Rebuilding image..."
+
 ARG GITHUB_TOKEN
 
 # Clone the private repository
@@ -92,4 +96,4 @@ EXPOSE 5000
 WORKDIR /workspace/Openpose_Docker
 
 # Run the Flask workspacelication
-CMD ["bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate venv && python Openpose_Docker/predict.py"]
+CMD ["bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate venv && python predict.py"]

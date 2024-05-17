@@ -29,7 +29,8 @@ def extract_face_keypoints(image):
     keypoints_list = []
     for pose in face_poses:
         if pose.face is not None:
-            keypoints = [(keypoint.x, keypoint.y) for keypoint in pose.face]
+            # Convert keypoints to native Python floats
+            keypoints = [(float(keypoint.x), float(keypoint.y)) for keypoint in pose.face]
             keypoints_list.append(keypoints)
         else:
             keypoints_list.append(None)
