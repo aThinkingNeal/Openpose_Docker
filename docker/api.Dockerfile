@@ -37,9 +37,8 @@ RUN conda init bash &&\
 # Set the working directory
 WORKDIR /workspace
 
-
 # Dummy command to force rebuild
-RUN echo "Rebuilding image..."
+RUN echo "Rebuilding image... 1"
 
 ARG GITHUB_TOKEN
 
