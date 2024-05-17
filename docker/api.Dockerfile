@@ -1,7 +1,7 @@
 FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu20.04 as builder
 
 LABEL maintainer="Tiancheng Huang <athinkingneal@gmail.com>" \
-    lastupdate="2024-05-14"
+    lastupdate="2024-05-17"
 
 # Set the timezone
 ENV TZ=Asia/Shanghai
@@ -37,12 +37,14 @@ RUN conda init bash &&\
 # Set the working directory
 WORKDIR /workspace
 
-# Dummy command to force rebuild
-RUN echo "Rebuilding image... 1"
-
 
 # Dummy command to force rebuild
 RUN echo "Rebuilding image... 2"
+
+
+# Dummy command to force rebuild
+RUN echo "Rebuilding image... 1"
+
 
 
 ARG GITHUB_TOKEN
