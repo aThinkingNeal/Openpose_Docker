@@ -80,7 +80,7 @@ def process_image():
         ],
     )
 
-    mbti_prediction = response.choices[0].message
+    mbti_prediction = response.choices[0].message.content
     return jsonify({"mbti": mbti_prediction})
 
 if __name__ == '__main__':

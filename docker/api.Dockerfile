@@ -40,6 +40,11 @@ WORKDIR /workspace
 # Dummy command to force rebuild
 RUN echo "Rebuilding image... 1"
 
+
+# Dummy command to force rebuild
+RUN echo "Rebuilding image... 2"
+
+
 ARG GITHUB_TOKEN
 
 # Clone the private repository
