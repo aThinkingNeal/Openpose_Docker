@@ -9,6 +9,22 @@ from flask import Flask, request, jsonify
 from controlnet_aux import OpenposeDetector
 from openai import OpenAI
 
+from pathlib import Path
+import sys
+
+# Get the current script's directory
+current_dir = Path(__file__).resolve().parent
+
+# Get the parent directory
+parent_dir = current_dir.parent
+
+# Insert the parent directory into sys.path
+sys.path.insert(0, str(parent_dir))
+
+from utils import PORTRAIT_DICT
+
+
+
 # Load environment variables
 load_dotenv()
 
@@ -69,7 +85,7 @@ def process_image():
 
     # Call GPT-3 to predict MBTI type
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o",
         messages=[
             {
                 "role": "system",
@@ -86,7 +102,37 @@ def process_image():
     )
 
     mbti_prediction = response.choices[0].message.content
-    return jsonify({"mbti": mbti_prediction})
+
+    mbti_upper = str(mbti_prediction).upper()
+
+    print("MBTI is: ", mbti_upper)
+
+    portrait = PORTRAIT_DICT[mbti_upper]
+
+    print(f"The portraits are: {portrait}")
+
+    # Call GPT-3 to describe the face
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "system",
+                "content": f"""你将会被给予一系列的面部特征词，你需要将这些特征词给组合成一段完整的面相描述段落."""
+            },
+            {
+                "role": "user",
+                "content": f"面部特征词为{portrait}，请输出一段完整的面相描述段落，如‘你的面相是...’" ,
+            }
+        ],
+    )
+
+    description = response.choices[0].message.content
+
+    return jsonify({
+        "mbti": mbti_upper,
+        "portrait": portrait,
+        "description": description,
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

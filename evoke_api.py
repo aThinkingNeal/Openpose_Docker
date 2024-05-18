@@ -9,7 +9,9 @@ def call_api(image_path):
     response = requests.post(url, files=files)
     
     if response.status_code == 200:
-        print("MBTI Prediction:", response.json().get("mbti"))
+        print("MBTI is", response.json().get("mbti"))
+        print("Portrait is", response.json().get("portrait"))
+        print("Face Prediction:", response.json().get("description"))
     else:
         print("Error:", response.status_code, response.text)
 

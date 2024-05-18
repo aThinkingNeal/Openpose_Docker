@@ -8,3 +8,4 @@ models/
 venv/
 archived/
 face_keypoints.txt
+*__pycache__*
