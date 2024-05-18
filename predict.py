@@ -46,8 +46,13 @@ def process_image():
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
-    # Save the image to a temporary path
-    image_path = os.path.join("/tmp", file.filename)
+    # Define a temporary directory relative to the location of the code file
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    temp_dir = os.path.join(base_dir, "temp")
+    os.makedirs(temp_dir, exist_ok=True)  # Create the directory if it doesn't exist
+
+    # Save the image to the temporary path
+    image_path = os.path.join(temp_dir, file.filename)
     file.save(image_path)
 
     # Extract face keypoints
@@ -55,7 +60,7 @@ def process_image():
     os.remove(image_path)
 
     # Load MBTI dataset using absolute path
-    json_file_path = os.path.join(os.path.dirname(__file__), "mbti_and_face.json")
+    json_file_path = os.path.join(base_dir, "mbti_and_face.json")
     with open(json_file_path, "r") as file:
         mbti_data = json.load(file)
 

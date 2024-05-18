@@ -25,3 +25,11 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 
 ```
+
+Remember to use anaconda powershell for development on Windowns machine
+
+run the following programs
+
+python predict.py
+
+python evoke_api.py

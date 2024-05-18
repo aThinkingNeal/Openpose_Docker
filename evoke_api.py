@@ -1,4 +1,6 @@
 import requests
+import os
+
 
 def call_api(image_path):
     url = "http://localhost:5000/process_image"
@@ -12,5 +14,7 @@ def call_api(image_path):
         print("Error:", response.status_code, response.text)
 
 if __name__ == "__main__":
-    image_path = "test.png"
+
+    # using absolute path
+    image_path = os.path.join(os.path.dirname(__file__), "test.png")
     call_api(image_path)
