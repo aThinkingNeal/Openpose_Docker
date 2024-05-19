@@ -21,8 +21,7 @@ parent_dir = current_dir.parent
 # Insert the parent directory into sys.path
 sys.path.insert(0, str(parent_dir))
 
-from utils import PORTRAIT_DICT
-
+from utils import PORTRAIT_DICT, MBTI_TO_FACE_DICT
 
 
 # Load environment variables
@@ -108,6 +107,7 @@ def process_image():
     print("MBTI is: ", mbti_upper)
 
     portrait = PORTRAIT_DICT[mbti_upper]
+    face_type = MBTI_TO_FACE_DICT[mbti_upper]
 
     print(f"The portraits are: {portrait}")
 
@@ -117,11 +117,11 @@ def process_image():
         messages=[
             {
                 "role": "system",
-                "content": f"""你将会被给予一系列的面部特征词，你需要将这些特征词给组合成一段完整的面相描述段落."""
+                "content": f"""现在你面前有一个人，你将会被给予一系列他的面部特征词，你需要将这些特征词用自然语言润色成一段完整的面相描述段落，并以第二人称向对方描述对方的面相"""
             },
             {
                 "role": "user",
-                "content": f"面部特征词为{portrait}，请输出一段完整的面相描述段落，如‘你的面相是...’" ,
+                "content": f"面部特征词为{portrait}，请输出一段完整的面相描述段落，并且让你的语言尽可能自然，而不只是复制面相描述, " ,
             }
         ],
     )
@@ -129,8 +129,7 @@ def process_image():
     description = response.choices[0].message.content
 
     return jsonify({
-        "mbti": mbti_upper,
-        "portrait": portrait,
+        "face_type": face_type,
         "description": description,
     })
 
