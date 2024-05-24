@@ -108,8 +108,8 @@ def call_api(image_path):
 if __name__ == "__main__":
     from pathlib import Path 
     # using absolute path
-    image_path = os.path.join(os.path.dirname(__file__), "test.png")
-    image_name = "bg.png"
+    # image_path = os.path.join(os.path.dirname(__file__), "test.png")
+    image_name = "bg1.png"
     image_path = f"E:\Workspace\out_put\{image_name}"
     image_path = Path(image_path)
     
