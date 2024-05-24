@@ -2,10 +2,11 @@ import requests
 import os
 import time
 from rich.console import Console
+from pathlib import Path
 
 def call_api(image_path):
     console = Console()
-
+    
     url = "http://localhost:5000/process_image"
     files = {'image': open(image_path, 'rb')}
     
@@ -59,16 +60,12 @@ def call_api(image_path):
                 time.sleep(0.05)  # Adjust delay for smoother scrolling
 
             # Print the face type character highlighted in red
-            # console.print(face_type[num_iter % len(face_type)], style="bold red")
-
             num_iter += 1
 
             for line in error_message_1.splitlines():
                 console.print(line, style="bold red")
                 time.sleep(0.05)  # Adjust delay for smoother scrolling
 
-            # time.sleep(interval)
-        
         print("Face is", face_type)
 
         description = response.json().get("description")
@@ -105,12 +102,18 @@ def call_api(image_path):
     else:
         print("Error:", response.status_code, response.text)
 
+def monitor_file(image_path):
+    last_modification_time = os.path.getmtime(image_path)
+    while True:
+        current_modification_time = os.path.getmtime(image_path)
+        if current_modification_time != last_modification_time:
+            last_modification_time = current_modification_time
+            call_api(image_path)
+        time.sleep(3)
+
 if __name__ == "__main__":
-    from pathlib import Path 
-    # using absolute path
-    # image_path = os.path.join(os.path.dirname(__file__), "test.png")
     image_name = "bg1.png"
-    image_path = f"E:\Workspace\out_put\{image_name}"
+    image_path = f"E:\\Workspace\\out_put\\{image_name}"
     image_path = Path(image_path)
     
-    call_api(image_path)
+    monitor_file(image_path)
