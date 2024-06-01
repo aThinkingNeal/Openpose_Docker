@@ -66,10 +66,10 @@ def call_api(image_path):
                 console.print(line, style="bold red")
                 time.sleep(0.05)  # Adjust delay for smoother scrolling
 
-        print("Face is", face_type)
+        # print("Face is", face_type)
 
         description = response.json().get("description")
-        print("Face Prediction:", description)
+        # print("Face Prediction:", description)
 
         output_str = description
         
@@ -101,7 +101,7 @@ def monitor_file(image_path):
         if current_modification_time != last_modification_time:
             last_modification_time = current_modification_time
             call_api(image_path)
-        time.sleep(3)
+        time.sleep(1)
 
 if __name__ == "__main__":
     image_name = "bg1.png"
