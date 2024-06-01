@@ -27,7 +27,7 @@ def call_api(image_path):
         face_type = response.json().get("face_type")
 
         # The duration for which the string should be printed (in seconds)
-        duration = 20
+        duration = 9
 
         # The frequency of printing the string (in seconds)
         interval = 1
@@ -109,21 +109,25 @@ def call_api(image_path):
         print("Error:", response.status_code, response.text)
 
 def monitor_file(image_path):
+    
     last_modification_time = os.path.getmtime(image_path)
     while True:
+        start_time = time.time()
         current_modification_time = os.path.getmtime(image_path)
         if current_modification_time != last_modification_time:
             last_modification_time = current_modification_time
             call_api(image_path)
+        end_time = time.time()
+        print(f"Time taken to for the whole process: {end_time - start_time:.2f} seconds")
         time.sleep(1)
 
 if __name__ == "__main__":
-    start_time = time.time()
+    
     image_name = "bg1.png"
     image_path = f"E:\\Workspace\\out_put\\{image_name}"
     image_path = Path(image_path)
     
     monitor_file(image_path)
-    end_time = time.time()
+    
 
-    print(f"Time taken to for the whole process: {end_time - start_time:.2f} seconds")
+    
