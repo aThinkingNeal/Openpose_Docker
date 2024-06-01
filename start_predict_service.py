@@ -9,6 +9,7 @@ from flask import Flask, request, jsonify
 from controlnet_aux import OpenposeDetector
 from openai import OpenAI
 import random
+from rich.console import Console
 
 from pathlib import Path
 import sys
@@ -55,6 +56,16 @@ def extract_face_keypoints(image):
 
 @app.route('/process_image', methods=['POST'])
 def process_image():
+
+    console = Console()
+
+    # add start time
+    start_time = time.time()
+
+    # add log info that the process is started
+    console.print("The process is started", style="bold green")
+
+
     if 'image' not in request.files:
         return jsonify({"error": "No image file provided"}), 400
     
@@ -164,10 +175,19 @@ def process_image():
 
     """
 
+    # add end time
+    end_time = time.time()
+
+    # log the process time
+    console.print(f"Time taken to process the image: {end_time - start_time:.2f} seconds", style="bold green")
+
     return jsonify({
         "face_type": face_type,
         "description": final_output,
     })
 
 if __name__ == '__main__':
+
+
     app.run(host='0.0.0.0', port=5000, debug=True)
+
