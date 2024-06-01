@@ -122,7 +122,7 @@ def process_image():
             },
             {
                 "role": "user",
-                "content": f"面部特征词为{portrait}，你需要将这段描述的第二句话进行润色和增添，同时维持其他描述的文字不变." ,
+                "content": f"面部描述为： {portrait}，你需要将这段面部描述的第二句话进行润色和增添，同时维持其他描述的文字不变." ,
             }
         ],
     )
@@ -154,12 +154,9 @@ def process_image():
     
     final_output= f"""
     您的面相分析：{face_type}----{description}
-
     -------------------------------
-
     您的未来运势：{prediction_key}----{prediction}
     -------------------------------
-
     """
 
     return jsonify({
