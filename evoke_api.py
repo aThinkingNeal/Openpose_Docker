@@ -3,14 +3,25 @@ import os
 import time
 from rich.console import Console
 from pathlib import Path
+import time 
+
 
 def call_api(image_path):
+
+    start_time = time.time()
     console = Console()
     
     url = "http://localhost:5000/process_image"
     files = {'image': open(image_path, 'rb')}
     
     response = requests.post(url, files=files)
+
+    end_time = time.time()
+
+    ai_process_time = end_time - start_time
+
+    # print the time taken to process the image
+    print(f"Time taken to process the image: {end_time - start_time:.2f} seconds")
     
     if response.status_code == 200:
         face_type = response.json().get("face_type")
@@ -90,6 +101,9 @@ def call_api(image_path):
         # Open the file in binary write mode and write the bytes
         with open(file_path, 'wb') as bin_file:
             bin_file.write(byte_data)
+
+        # print the ai process time
+        print(f"Time taken to process the image: {ai_process_time:.2f} seconds")
        
     else:
         print("Error:", response.status_code, response.text)
@@ -104,8 +118,12 @@ def monitor_file(image_path):
         time.sleep(1)
 
 if __name__ == "__main__":
+    start_time = time.time()
     image_name = "bg1.png"
     image_path = f"E:\\Workspace\\out_put\\{image_name}"
     image_path = Path(image_path)
     
     monitor_file(image_path)
+    end_time = time.time()
+
+    print(f"Time taken to for the whole process: {end_time - start_time:.2f} seconds")
