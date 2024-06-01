@@ -71,16 +71,8 @@ def call_api(image_path):
         description = response.json().get("description")
         print("Face Prediction:", description)
 
-        output_str = f"""
+        output_str = description
         
----------------
-
-{face_type}
-{description}
-
----------------
-        
-        """
         console.print(output_str, style="bold red")
 
 

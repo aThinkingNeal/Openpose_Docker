@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from controlnet_aux import OpenposeDetector
 from openai import OpenAI
+import random
 
 from pathlib import Path
 import sys
@@ -21,7 +22,7 @@ parent_dir = current_dir.parent
 # Insert the parent directory into sys.path
 sys.path.insert(0, str(parent_dir))
 
-from utils import PORTRAIT_DICT, MBTI_TO_FACE_DICT
+from utils import PORTRAIT_DICT, MBTI_TO_FACE_DICT,PREDICTION_DICT
 
 
 # Load environment variables
@@ -82,7 +83,7 @@ def process_image():
     # Convert keypoints to JSON
     keypoints_json = json.dumps(keypoints)
 
-    # Call GPT-3 to predict MBTI type
+    # Call GPT-4o to predict MBTI type
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -111,7 +112,7 @@ def process_image():
 
     print(f"The portraits are: {portrait}")
 
-    # Call GPT-3 to describe the face
+    # Call GPT-4o to describe the face
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -128,9 +129,42 @@ def process_image():
 
     description = response.choices[0].message.content
 
+
+    random_key = random.choice(list(PREDICTION_DICT.keys()))
+    prediction = PREDICTION_DICT[random_key]
+
+
+    # Call GPT-4o to give the prediction
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "system",
+                "content": f"""现在你将被给予一段运势预测，你需要基于这段预测内容，向对方描述他的运势，你的输出将是对方的运势描述，你需要做部分语言的替换和增减。"""
+            },
+            {
+                "role": "user",
+                "content": f"运势预测为{prediction}，请输出一段完整的运势预测，并且让你的语言尽可能自然，而不只是复制运势预测 " ,
+            }
+        ],
+    )
+
+    
+    final_output= f"""
+    您的面相分析：{face_type}----{description}
+
+    -------------------------------
+
+    您的未来运势：{random_key}----{prediction}
+    -------------------------------
+
+
+
+    """
+
     return jsonify({
         "face_type": face_type,
-        "description": description,
+        "description": final_output,
     })
 
 if __name__ == '__main__':
