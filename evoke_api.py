@@ -21,7 +21,7 @@ def call_api(image_path):
     ai_process_time = end_time - start_time
 
     # print the time taken to process the image
-    print(f"Time taken to process the image: {end_time - start_time:.2f} seconds")
+    # print(f"Time taken to process the image: {end_time - start_time:.2f} seconds")
     
     if response.status_code == 200:
         face_type = response.json().get("face_type")
@@ -99,7 +99,7 @@ def call_api(image_path):
         os.makedirs(folder_path, exist_ok=True)
 
         # print the ai process time
-        print(f"Time taken to process the image: {ai_process_time:.2f} seconds")
+        #print(f"Time taken to process the image: {ai_process_time:.2f} seconds")
 
         # Open the file in binary write mode and write the bytes
         with open(file_path, 'wb') as bin_file:
@@ -118,7 +118,7 @@ def monitor_file(image_path):
             last_modification_time = current_modification_time
             call_api(image_path)
         end_time = time.time()
-        print(f"Time taken to for the whole process: {end_time - start_time:.2f} seconds")
+        # print(f"Time taken to for the whole process: {end_time - start_time:.2f} seconds")
         time.sleep(1)
 
 if __name__ == "__main__":
