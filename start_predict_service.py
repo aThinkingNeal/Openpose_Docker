@@ -153,10 +153,15 @@ def process_image():
 
     
     final_output= f"""
-    您的面相分析：{face_type}----{description}
-    -------------------------------
-    您的未来运势：{prediction_key}----{prediction}
-    -------------------------------
+您的面相分析：{face_type}----{description}
+
+-------------------------------
+
+您的未来运势：{prediction_key}----{prediction}
+-------------------------------
+
+
+
     """
 
     return jsonify({
