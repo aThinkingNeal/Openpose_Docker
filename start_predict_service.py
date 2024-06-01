@@ -129,10 +129,12 @@ def process_image():
 
     description = response.choices[0].message.content
 
+    
+    prediction_dict = PREDICTION_DICT[mbti_upper]
 
-    random_key = random.choice(list(PREDICTION_DICT.keys()))
-    prediction = PREDICTION_DICT[random_key]
-
+    # randomly select a prediction key
+    prediction_key = random.choice(list(prediction_dict.keys()))
+    prediction = prediction_dict[prediction_key]
 
     # Call GPT-4o to give the prediction
     response = client.chat.completions.create(
@@ -155,7 +157,7 @@ def process_image():
 
     -------------------------------
 
-    您的未来运势：{random_key}----{prediction}
+    您的未来运势：{prediction_key}----{prediction}
     -------------------------------
 
     """
