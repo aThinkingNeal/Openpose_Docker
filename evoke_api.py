@@ -27,7 +27,7 @@ def call_api(image_path):
         face_type = response.json().get("face_type")
 
         # The duration for which the string should be printed (in seconds)
-        duration = 9
+        duration = 8
 
         # The frequency of printing the string (in seconds)
         interval = 1
