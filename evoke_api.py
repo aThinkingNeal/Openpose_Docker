@@ -98,12 +98,12 @@ def call_api(image_path):
         # Ensure the "123" folder exists
         os.makedirs(folder_path, exist_ok=True)
 
+        # print the ai process time
+        print(f"Time taken to process the image: {ai_process_time:.2f} seconds")
+
         # Open the file in binary write mode and write the bytes
         with open(file_path, 'wb') as bin_file:
             bin_file.write(byte_data)
-
-        # print the ai process time
-        print(f"Time taken to process the image: {ai_process_time:.2f} seconds")
        
     else:
         print("Error:", response.status_code, response.text)
