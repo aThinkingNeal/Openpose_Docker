@@ -11,6 +11,7 @@ from openai import OpenAI
 
 from pathlib import Path
 import sys
+import random
 
 # Get the current script's directory
 current_dir = Path(__file__).resolve().parent
@@ -100,9 +101,12 @@ def process_image():
         ],
     )
 
-    mbti_prediction = response.choices[0].message.content
+    # mbti_prediction = response.choices[0].message.content
 
-    mbti_upper = str(mbti_prediction).upper()
+    # mbti_upper = str(mbti_prediction).upper()
+
+    # randomly select an MBTI type
+    mbti_upper = random.choice(list(PORTRAIT_DICT.keys()))
 
     print("MBTI is: ", mbti_upper)
 
