@@ -35,7 +35,10 @@ model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
 
 # Initialize OpenAI client
 api_key = os.getenv("OPENAI_API_KEY")  # Ensure you set this in your .env file
-client = OpenAI()
+
+client = OpenAI(
+    base_url="https://api.gptsapi.net/v1",
+)
 
 def extract_face_keypoints(image):
     """Extracts face keypoints from the image using OpenposeDetector."""
@@ -82,6 +85,8 @@ def process_image():
 
     # Convert keypoints to JSON
     keypoints_json = json.dumps(keypoints)
+
+
 
     # Call GPT-3 to predict MBTI type
     response = client.chat.completions.create(
