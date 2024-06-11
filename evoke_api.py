@@ -40,20 +40,15 @@ def call_api(image_path):
         # Loop for the specified duration
         num_iter = 0
         while time.time() - start_time < duration:
-            error_message_0 = f"""
-            
-            
-            """
+            # error_message_0 = f""""""
 
-          
-
-            # Printing error messages line by line for smooth scrolling
-            for line in error_message_0.splitlines():
-                # if num_iter % 3 == 0:
-                #    console.print(line, style= "green")
-                # else:
-                console.print(line, style="bold red")
-                time.sleep(2)  # Adjust delay for smoother scrolling
+            # # Printing error messages line by line for smooth scrolling
+            # for line in error_message_0.splitlines():
+            #     # if num_iter % 3 == 0:
+            #     #    console.print(line, style= "green")
+            #     # else:
+            #     console.print(line, style="bold red")
+            #     time.sleep(2)  # Adjust delay for smoother scrolling
 
             # Print the face type character highlighted in red
             num_iter += 1
