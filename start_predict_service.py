@@ -90,27 +90,27 @@ def process_image():
     os.remove(image_path)
 
     # Load MBTI dataset using absolute path
-    json_file_path = os.path.join(base_dir, "mbti_and_face.json")
-    with open(json_file_path, "r") as file:
-        mbti_data = json.load(file)
+    # json_file_path = os.path.join(base_dir, "mbti_and_face.json")
+    # with open(json_file_path, "r") as file:
+    #     mbti_data = json.load(file)
 
-    # Convert keypoints to JSON
-    keypoints_json = json.dumps(keypoints)
+    # # Convert keypoints to JSON
+    # keypoints_json = json.dumps(keypoints)
 
-    # Call GPT-4o to predict MBTI type
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "system",
-                "content": f"You will predict the MBTI type after you are given certrain keypoints."
-            },
-            {
-                "role": "user",
-                "content": f"You have face keypoints in the following format: {keypoints_json}, please try to predict the MBTI type of this person and only provide the MBTI type (four letters) as the output."
-            }
-        ],
-    )
+    # # Call GPT-4o to predict MBTI type
+    # response = client.chat.completions.create(
+    #     model="gpt-3.5-turbo",
+    #     messages=[
+    #         {
+    #             "role": "system",
+    #             "content": f"You will predict the MBTI type after you are given certrain keypoints."
+    #         },
+    #         {
+    #             "role": "user",
+    #             "content": f"You have face keypoints in the following format: {keypoints_json}, please try to predict the MBTI type of this person and only provide the MBTI type (four letters) as the output."
+    #         }
+    #     ],
+    # )
 
     # mbti_prediction = response.choices[0].message.content
 
