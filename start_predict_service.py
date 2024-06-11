@@ -112,9 +112,11 @@ def process_image():
         ],
     )
 
-    mbti_prediction = response.choices[0].message.content
+    # mbti_prediction = response.choices[0].message.content
 
-    mbti_upper = str(mbti_prediction).upper()
+    # mbti_upper = str(mbti_prediction).upper()
+    
+    mbti_upper = random.choice(list(PORTRAIT_DICT.keys()))
 
     print("MBTI is: ", mbti_upper)
 
