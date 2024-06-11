@@ -26,8 +26,10 @@ def call_api(image_path):
     if response.status_code == 200:
         face_type = response.json().get("face_type")
 
-        # The duration for which the string should be printed (in seconds)
-        duration = 8
+        # The duration for which the string should be printed (in seconds), now it is 8 seconds
+        # 举例 目前处理时间为12秒，打印信息时间为8秒，总时间为12+8=20秒
+        # 如果希望将总时间改为25秒，那么将下方duration改为25 - 12 = 13秒即可
+        duration = 6
 
         # The frequency of printing the string (in seconds)
         interval = 1
@@ -39,43 +41,22 @@ def call_api(image_path):
         num_iter = 0
         while time.time() - start_time < duration:
             error_message_0 = f"""
-
-            Traceback (most recent call last):
-            File "E:\\Workspace\\Openpose_Docker\\start_predict_service.py", line 9, in <module>
-                from controlnet_aux import OpenposeDetector
-            File "D:\\python3.11\\Lib\\site-packages\\controlnet_aux\\__init__.py", line 3, in <module>
-                from .hed import HEDdetector
-            File "D:\\python3.11\\Lib\\site-packages\\controlnet_aux\\hed\\__init__.py", line 21, in <module>
-                class DoubleConvBlock(torch.nn.Module): 
-                                    ^^^^^^^^
+            
+            
             """
 
-            error_message_1 = """
-            AttributeError: module 'torch' has no attribute 'nn'
-            PS E:\\Workspace\\Openpose_Docker> conda activate venv
-            PS E:\\Workspace\\Openpose_Docker> python .\\start_predict_service.py
-            Traceback (most recent call last):
-            File "E:\\Workspace\\Openpose_Docker\\start_predict_service.py", line 9, in <module>
-                from controlnet_aux import OpenposeDetector
-            File "D:\\python3.11\\Lib\\site-packages\\controlnet_aux\\__init__.py", line 3, in <module>
-                from .hed import HEDdetector
-            File "D:\\python3.11\\Lib\\site-packages\\controlnet_aux\\hed\\__init__.py", line 21, in <module>
-                class DoubleConvBlock(torch.nn.Module):
-                                    ^^^^^^^^
-            AttributeError: module 'torch' has no attribute 'nn'
-            """
+          
 
             # Printing error messages line by line for smooth scrolling
             for line in error_message_0.splitlines():
-                console.print(line + face_type[num_iter % len(face_type)], style="bold red")
-                time.sleep(0.05)  # Adjust delay for smoother scrolling
+                # if num_iter % 3 == 0:
+                #    console.print(line, style= "green")
+                # else:
+                console.print(line, style="bold red")
+                time.sleep(2)  # Adjust delay for smoother scrolling
 
             # Print the face type character highlighted in red
             num_iter += 1
-
-            for line in error_message_1.splitlines():
-                console.print(line, style="bold red")
-                time.sleep(0.05)  # Adjust delay for smoother scrolling
 
         # print("Face is", face_type)
 

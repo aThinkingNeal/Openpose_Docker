@@ -96,14 +96,11 @@ def process_image():
 
     # Call GPT-4o to predict MBTI type
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-3.5-turbo",
         messages=[
             {
                 "role": "system",
-                "content": f"""You will be provided with a string in json format, representing the face keypoints of a person and you will try to predict the MBTI of the person, \
-                              your output will just be the MBTI type of the person and nothing else. \
-                              You will make the prediction based on the dataset given to you in the following json string, where the key is the mbti type and the value is a list of face keypoints of that type. \
-                              The json string is as follows: {mbti_data}."""
+                "content": f"You will predict the MBTI type after you are given certrain keypoints."
             },
             {
                 "role": "user",
@@ -125,7 +122,7 @@ def process_image():
 
     # Call GPT-4o to describe the face
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-3.5-turbo",
         messages=[
             {
                 "role": "system",
@@ -149,7 +146,7 @@ def process_image():
 
     # Call GPT-4o to give the prediction
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-3.5-turbo",
         messages=[
             {
                 "role": "system",
