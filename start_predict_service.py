@@ -123,25 +123,26 @@ def process_image():
     portrait = PORTRAIT_DICT[mbti_upper]
     face_type = MBTI_TO_FACE_DICT[mbti_upper]
 
-    print(f"The portraits are: {portrait}")
+    # print(f"The portraits are: {portrait}")
 
-    # Call GPT-4o to describe the face
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "system",
-                "content": f"""现在你面前有一个人，你将会被给予一段描述，你需要将这段描述的第二句话进行润色和增添，同时维持其他描述的文字不变"""
-            },
-            {
-                "role": "user",
-                "content": f"{portrait}，你需要将这段面部描述的第二句话进行润色和增添，同时维持其他描述的文字不变." ,
-            }
-        ],
-    )
+    # # Call GPT-4o to describe the face
+    # response = client.chat.completions.create(
+    #     model="gpt-3.5-turbo",
+    #     messages=[
+    #         {
+    #             "role": "system",
+    #             "content": f"""现在你面前有一个人，你将会被给予一段描述，你需要将这段描述的第二句话进行润色和增添，同时维持其他描述的文字不变"""
+    #         },
+    #         {
+    #             "role": "user",
+    #             "content": f"{portrait}，你需要将这段面部描述的第二句话进行润色和增添，同时维持其他描述的文字不变." ,
+    #         }
+    #     ],
+    # )
 
-    description = response.choices[0].message.content
-
+    # description = response.choices[0].message.content
+    
+    description = portrait
     
     prediction_dict = PREDICTION_DICT[mbti_upper]
 
